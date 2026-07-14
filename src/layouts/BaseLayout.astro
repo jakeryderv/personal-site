@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import { GITHUB_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = SITE_DESCRIPTION } = Astro.props;
+const pageTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
+const current = Astro.url.pathname;
+const nav = [
+  { href: '/projects', label: 'projects' },
+  { href: '/blog', label: 'blog' },
+  { href: '/about', label: 'about' },
+  { href: '/contact', label: 'contact' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
+    <link rel="preload" href="/fonts/0xproto-regular.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="brand" href="/">jake@jvs.sh<span class="path">:~$</span></a>
+        <ul>
+          {nav.map(({ href, label }) => (
+            <li>
+              <a href={href} aria-current={current.startsWith(href) ? 'page' : undefined}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer>
+      <a href={GITHUB_URL} aria-label="GitHub"><span class="icon">&#xf09b;</span> github</a>
+      <a href="/contact" aria-label="Contact"><span class="icon">&#xf0e0;</span> contact</a>
+      <a href="/rss.xml" aria-label="RSS feed"><span class="icon">&#xf09e;</span> rss</a>
+      <span class="copyright">© 2026 Jake Van Slyke</span>
+    </footer>
+  </body>
+</html>

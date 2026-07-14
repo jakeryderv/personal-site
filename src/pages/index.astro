@@ -1,13 +1,14 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../consts';
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>jvs.sh</title>
-  </head>
-  <body>
-    <h1>jvs.sh — under construction</h1>
-  </body>
-</html>
+
+<BaseLayout title={SITE_TITLE}>
+  <p class="ps1">jake@jvs.sh:~$ whoami</p>
+  <h1>Jake Van Slyke</h1>
+  <p>Site under construction.<span class="cursor"></span></p>
+</BaseLayout>
+<style>
+  .ps1 { color: var(--fg3); }
+  h1::before { content: none; }
+</style>
