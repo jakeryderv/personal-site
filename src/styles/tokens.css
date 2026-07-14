@@ -1,0 +1,37 @@
+:root {
+  /* carbonfox — https://github.com/EdenEast/nightfox.nvim */
+  --bg0: #0c0c0c;
+  --bg1: #161616; /* default background */
+  --bg2: #252525;
+  --bg3: #353535;
+  --bg4: #535353;
+  --fg0: #f9fbff;
+  --fg1: #f2f4f8; /* default foreground */
+  --fg2: #b6b8bb;
+  --fg3: #7b7c7e;
+  --sel0: #2a2a2a;
+  --sel1: #525253;
+  --comment: #6e6f70;
+  --red: #ee5396;
+  --green: #25be6a;
+  --yellow: #08bdba;
+  --blue: #78a9ff;
+  --magenta: #be95ff;
+  --cyan: #33b1ff;
+  --orange: #3ddbd9;
+  --pink: #ff7eb6;
+  --white: #dfdfe0;
+
+  /* Shiki (shikiConfig theme: 'css-variables') */
+  --astro-code-foreground: var(--fg1);
+  --astro-code-background: var(--bg0);
+  --astro-code-token-constant: var(--orange);
+  --astro-code-token-string: var(--green);
+  --astro-code-token-comment: var(--comment);
+  --astro-code-token-keyword: var(--magenta);
+  --astro-code-token-parameter: var(--cyan);
+  --astro-code-token-function: var(--blue);
+  --astro-code-token-string-expression: var(--green);
+  --astro-code-token-punctuation: var(--fg2);
+  --astro-code-token-link: var(--cyan);
+}
