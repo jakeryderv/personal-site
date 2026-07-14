@@ -16,7 +16,7 @@ const { title, description, tech, repo, live } = project.data;
     {tech.map((t) => <li>{t}</li>)}
   </ul>
   <div class="links">
-    {repo && <a href={repo}><span class="icon">&#xf09b;</span> repo</a>}
+    {repo && <a href={repo}><span class="icon" aria-hidden="true">&#xf09b;</span> repo</a>}
     {live && <a href={live}>live ↗</a>}
   </div>
 </article>
