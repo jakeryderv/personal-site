@@ -31,16 +31,21 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   }
 
   const token = String(form.get('cf-turnstile-response') ?? '');
-  const verifyRes = await fetch(SITEVERIFY, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({
-      secret: env.TURNSTILE_SECRET_KEY,
-      response: token,
-      remoteip: request.headers.get('cf-connecting-ip') ?? undefined,
-    }),
-  });
-  const verdict = (await verifyRes.json()) as { success: boolean };
+  let verdict: { success: boolean };
+  try {
+    const verifyRes = await fetch(SITEVERIFY, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: token,
+        remoteip: request.headers.get('cf-connecting-ip') ?? undefined,
+      }),
+    });
+    verdict = (await verifyRes.json()) as { success: boolean };
+  } catch {
+    return respond(403, { ok: false, errors: { form: 'Bot check failed — please retry.' } }, '/contact?status=blocked');
+  }
   if (!verdict.success) {
     return respond(
       403,
