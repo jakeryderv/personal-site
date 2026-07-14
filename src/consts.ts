@@ -8,4 +8,4 @@ export const GITHUB_URL = 'https://github.com/jakeryderv';
 // is used everywhere, which is fine because /contact ships in Task 7.
 export const TURNSTILE_SITEKEY = import.meta.env.DEV
   ? '1x00000000000000000000AA'
-  : '1x00000000000000000000AA';
+  : '0x4AAAAAAD1-XnGWpiytQqHA';
