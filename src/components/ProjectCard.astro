@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, tech, repo, live } = project.data;
+---
+
+<article class="card">
+  <h2>{title}</h2>
+  <p>{description}</p>
+  <ul class="tech">
+    {tech.map((t) => <li>{t}</li>)}
+  </ul>
+  <div class="links">
+    {repo && <a href={repo}><span class="icon">&#xf09b;</span> repo</a>}
+    {live && <a href={live}>live ↗</a>}
+  </div>
+</article>
+
+<style>
+  .card {
+    border: 1px solid var(--bg3);
+    border-radius: 6px;
+    background: var(--bg0);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h2 { font-size: 1.1rem; margin-block: 0 0.5rem; }
+  .card h2::before { content: '/'; color: var(--magenta); }
+  .card p { margin-block: 0; color: var(--fg2); flex: 1; }
+  .tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin-block: 0.75rem;
+  }
+  .tech li {
+    font-size: 0.8em;
+    color: var(--yellow);
+    background: var(--bg2);
+    padding: 0.1em 0.6em;
+    border-radius: 999px;
+  }
+  .links { display: flex; gap: 1.25rem; }
+</style>
