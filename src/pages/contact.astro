@@ -29,6 +29,7 @@ import { TURNSTILE_SITEKEY } from '../consts';
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const status = document.getElementById('form-status')!;
+  const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
   const messages: Record<string, string> = {
     sent: 'Message sent — thanks!',
@@ -44,6 +45,7 @@ import { TURNSTILE_SITEKEY } from '../consts';
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     status.textContent = 'sending…';
+    submitButton.disabled = true;
     try {
       const res = await fetch(form.action, {
         method: 'POST',
@@ -59,6 +61,8 @@ import { TURNSTILE_SITEKEY } from '../consts';
       }
     } catch {
       status.textContent = messages.error;
+    } finally {
+      submitButton.disabled = false;
     }
     (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
   });

@@ -22,6 +22,12 @@ describe('validateContact', () => {
   it('rejects oversized message', () => {
     expect(validateContact({ ...valid, message: 'x'.repeat(5001) })).toHaveProperty('message');
   });
+  it('rejects name containing CRLF header injection attempt', () => {
+    expect(validateContact({ ...valid, name: 'Ada\r\nBcc: evil@example.com' })).toHaveProperty('name');
+  });
+  it('rejects name containing a bare newline', () => {
+    expect(validateContact({ ...valid, name: 'Ada\nBcc: evil@example.com' })).toHaveProperty('name');
+  });
 });
 
 describe('escapeHtml', () => {

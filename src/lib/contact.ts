@@ -7,6 +7,7 @@ export interface ContactFields {
 export type FieldErrors = Partial<Record<keyof ContactFields, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CONTROL_CHAR_RE = /[\x00-\x1f\x7f]/;
 
 export function validateContact(fields: ContactFields): FieldErrors {
   const errors: FieldErrors = {};
@@ -14,6 +15,7 @@ export function validateContact(fields: ContactFields): FieldErrors {
   const email = fields.email.trim();
   const message = fields.message.trim();
   if (name.length < 1 || name.length > 200) errors.name = 'Name is required (max 200 characters).';
+  else if (CONTROL_CHAR_RE.test(name)) errors.name = 'Name contains invalid characters.';
   if (!EMAIL_RE.test(email) || email.length > 254) errors.email = 'A valid email address is required.';
   if (message.length < 10 || message.length > 5000) errors.message = 'Message must be 10–5000 characters.';
   return errors;
