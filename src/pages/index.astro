@@ -1,14 +1,61 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_TITLE } from '../consts';
+import { GITHUB_URL, SITE_TITLE } from '../consts';
+
+const projects = (await getCollection('projects', ({ data }) => data.featured))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 ---
 
 <BaseLayout title={SITE_TITLE}>
-  <p class="ps1">jake@jvs.sh:~$ whoami</p>
-  <h1>Jake Van Slyke</h1>
-  <p>Site under construction.<span class="cursor"></span></p>
+  <section class="hero">
+    <p class="ps1">jake@jvs.sh:~$ whoami</p>
+    <h1 class="name">Jake Van Slyke</h1>
+    <p class="tagline">
+      software engineer — I build things and occasionally write about them.<span class="cursor"></span>
+    </p>
+    <p class="links">
+      <a href={GITHUB_URL}><span class="icon">&#xf09b;</span> github</a>
+      <a href="/contact"><span class="icon">&#xf0e0;</span> contact</a>
+      <a href="/rss.xml"><span class="icon">&#xf09e;</span> rss</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>featured projects</h2>
+    <ul>
+      {projects.map((project) => (
+        <li>
+          <a href="/projects">{project.data.title}</a> — {project.data.description}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>recent posts</h2>
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <time datetime={post.data.date.toISOString()}>{post.data.date.toISOString().slice(0, 10)}</time>
+          {' '}
+          <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </BaseLayout>
+
 <style>
+  .hero { margin-block: 2rem 3rem; }
   .ps1 { color: var(--fg3); }
-  h1::before { content: none; }
+  .name { margin-block: 0.25rem; }
+  .name::before { content: none; }
+  .tagline { color: var(--fg2); }
+  .links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+  section ul { display: grid; gap: 0.4rem; }
 </style>
