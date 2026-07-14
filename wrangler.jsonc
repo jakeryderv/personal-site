@@ -9,5 +9,11 @@
   },
   "observability": { "enabled": true },
   "workers_dev": false,
-  "routes": [{ "pattern": "jvs.sh", "custom_domain": true }]
+  "routes": [{ "pattern": "jvs.sh", "custom_domain": true }],
+  "vars": {
+    "CONTACT_TO": "jakervanslyke@gmail.com"
+  },
+  "send_email": [
+    { "name": "EMAIL", "allowed_sender_addresses": ["contact@jvs.sh"] }
+  ]
 }
