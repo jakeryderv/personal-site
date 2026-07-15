@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import AsciiHeadshot from '../components/AsciiHeadshot.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { GITHUB_URL, LINKEDIN_URL, SITE_TITLE } from '../consts';
 
@@ -13,18 +14,21 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
 <BaseLayout title={SITE_TITLE}>
   <section class="hero">
-    <p class="ps1">jake@jvs.sh:~$ whoami</p>
-    <h1 class="name">Jake Van Slyke</h1>
-    <p class="tagline">
-      applied AI student — I train robots in simulation, build vision pipelines, and
-      write the tooling in between.<span class="cursor"></span>
-    </p>
-    <p class="links">
-      <a href={GITHUB_URL}><span class="icon" aria-hidden="true">&#xf09b;</span> github</a>
-      <a href={LINKEDIN_URL}><span class="icon" aria-hidden="true">&#xf0e1;</span> linkedin</a>
-      <a href="/contact/"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact</a>
-      <a href="/rss.xml"><span class="icon" aria-hidden="true">&#xf09e;</span> rss</a>
-    </p>
+    <div class="intro">
+      <p class="ps1">jake@jvs.sh:~$ whoami</p>
+      <h1 class="name">Jake Van Slyke</h1>
+      <p class="tagline">
+        applied AI student — I train robots in simulation, build vision pipelines, and
+        write the tooling in between.<span class="cursor"></span>
+      </p>
+      <p class="links">
+        <a href={GITHUB_URL}><span class="icon" aria-hidden="true">&#xf09b;</span> github</a>
+        <a href={LINKEDIN_URL}><span class="icon" aria-hidden="true">&#xf0e1;</span> linkedin</a>
+        <a href="/contact/"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact</a>
+        <a href="/rss.xml"><span class="icon" aria-hidden="true">&#xf09e;</span> rss</a>
+      </p>
+    </div>
+    <AsciiHeadshot />
   </section>
 
   <section>
@@ -53,11 +57,30 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 </BaseLayout>
 
 <style>
-  .hero { margin-block: 2rem 3rem; }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem);
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+    width: min(96ch, calc(100vw - 2rem));
+    margin: 1rem 50% 3.5rem;
+    transform: translateX(-50%);
+  }
+  .intro { min-width: 0; }
   .ps1 { color: var(--fg3); }
   .name { margin-block: 0.25rem; }
   .name::before { content: none; }
   .tagline { color: var(--fg2); }
   .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1rem; }
   section ul { display: grid; gap: 0.4rem; }
+
+  @media (max-width: 46rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.75rem;
+      width: 100%;
+      margin: 1rem 0 3rem;
+      transform: none;
+    }
+  }
 </style>
