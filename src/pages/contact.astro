@@ -31,63 +31,7 @@ import { TURNSTILE_SITEKEY } from '../consts';
 </BaseLayout>
 
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const status = document.getElementById('form-status')!;
-  const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-
-  const messages: Record<string, string> = {
-    sent: 'Message sent — thanks!',
-    invalid: 'Please check the fields and try again.',
-    blocked: 'Bot check failed — please retry.',
-    error: 'Something went wrong — please try again later.',
-  };
-
-  interface ContactResponse {
-    ok: boolean;
-    errors?: Record<string, string>;
-  }
-
-  const isContactResponse = (value: unknown): value is ContactResponse => {
-    if (typeof value !== 'object' || value === null || typeof Reflect.get(value, 'ok') !== 'boolean') return false;
-    const errors = Reflect.get(value, 'errors');
-    return errors === undefined
-      || (typeof errors === 'object'
-        && errors !== null
-        && Object.values(errors).every((message) => typeof message === 'string'));
-  };
-
-  // No-JS fallback lands back here with ?status=... (success goes to /contact/sent)
-  const initial = new URLSearchParams(location.search).get('status');
-  if (initial && messages[initial]) status.textContent = messages[initial];
-
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    status.textContent = 'sending…';
-    submitButton.disabled = true;
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { accept: 'application/json' },
-      });
-      const data: unknown = await res.json();
-      if (!isContactResponse(data)) throw new Error('Unexpected contact response');
-      if (data.ok) {
-        form.reset();
-        status.textContent = messages.sent;
-      } else {
-        status.textContent = Object.values(data.errors ?? {}).join(' ') || messages.error;
-      }
-    } catch {
-      status.textContent = messages.error;
-    } finally {
-      submitButton.disabled = false;
-    }
-    (window as Window & { turnstile?: { reset: () => void } }).turnstile?.reset();
-  });
-</script>
+<script is:inline src="/scripts/contact.js"></script>
 
 <style>
   form { display: grid; gap: 0.5rem; max-width: 40rem; }
