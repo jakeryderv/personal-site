@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { GITHUB_URL } from '../consts';
+import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 ---
 
 <BaseLayout title="about" description="About Jake Van Slyke">
@@ -29,6 +29,7 @@ import { GITHUB_URL } from '../consts';
   <h2>elsewhere</h2>
   <p>
     <a href={GITHUB_URL}><span class="icon" aria-hidden="true">&#xf09b;</span> github</a> ·
+    <a href={LINKEDIN_URL}><span class="icon" aria-hidden="true">&#xf0e1;</span> linkedin</a> ·
     <a href="/contact"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact form</a>
   </p>
 </BaseLayout>
