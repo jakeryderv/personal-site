@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { GITHUB_URL, SITE_TITLE } from '../consts';
+import { GITHUB_URL, LINKEDIN_URL, SITE_TITLE } from '../consts';
 
 const projects = (await getCollection('projects', ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
@@ -20,6 +20,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     </p>
     <p class="links">
       <a href={GITHUB_URL}><span class="icon" aria-hidden="true">&#xf09b;</span> github</a>
+      <a href={LINKEDIN_URL}><span class="icon" aria-hidden="true">&#xf0e1;</span> linkedin</a>
       <a href="/contact"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact</a>
       <a href="/rss.xml"><span class="icon" aria-hidden="true">&#xf09e;</span> rss</a>
     </p>
