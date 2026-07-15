@@ -17,10 +17,16 @@ import { TURNSTILE_SITEKEY } from '../consts';
     <label for="message">message</label>
     <textarea id="message" name="message" required minlength="10" maxlength="5000" rows="8"></textarea>
 
-    <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="dark"></div>
+    <div
+      class="cf-turnstile"
+      data-sitekey={TURNSTILE_SITEKEY}
+      data-action="turnstile-spin-v2"
+      data-size="flexible"
+      data-theme="dark"
+    ></div>
 
     <button type="submit">send</button>
-    <p id="form-status" role="status"></p>
+    <p id="form-status" role="status" aria-atomic="true"></p>
   </form>
 </BaseLayout>
 
@@ -38,6 +44,20 @@ import { TURNSTILE_SITEKEY } from '../consts';
     error: 'Something went wrong — please try again later.',
   };
 
+  interface ContactResponse {
+    ok: boolean;
+    errors?: Record<string, string>;
+  }
+
+  const isContactResponse = (value: unknown): value is ContactResponse => {
+    if (typeof value !== 'object' || value === null || typeof Reflect.get(value, 'ok') !== 'boolean') return false;
+    const errors = Reflect.get(value, 'errors');
+    return errors === undefined
+      || (typeof errors === 'object'
+        && errors !== null
+        && Object.values(errors).every((message) => typeof message === 'string'));
+  };
+
   // No-JS fallback lands back here with ?status=... (success goes to /contact/sent)
   const initial = new URLSearchParams(location.search).get('status');
   if (initial && messages[initial]) status.textContent = messages[initial];
@@ -52,7 +72,8 @@ import { TURNSTILE_SITEKEY } from '../consts';
         body: new FormData(form),
         headers: { accept: 'application/json' },
       });
-      const data = (await res.json()) as { ok: boolean; errors?: Record<string, string> };
+      const data: unknown = await res.json();
+      if (!isContactResponse(data)) throw new Error('Unexpected contact response');
       if (data.ok) {
         form.reset();
         status.textContent = messages.sent;
@@ -64,7 +85,7 @@ import { TURNSTILE_SITEKEY } from '../consts';
     } finally {
       submitButton.disabled = false;
     }
-    (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
+    (window as Window & { turnstile?: { reset: () => void } }).turnstile?.reset();
   });
 </script>
 
@@ -80,7 +101,7 @@ import { TURNSTILE_SITEKEY } from '../consts';
     padding: 0.6rem 0.75rem;
     font: inherit;
   }
-  input:focus, textarea:focus { outline: 1px solid var(--blue); border-color: var(--blue); }
+  input:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue); border-color: var(--blue); }
   button {
     justify-self: start;
     margin-top: 0.75rem;
@@ -94,6 +115,7 @@ import { TURNSTILE_SITEKEY } from '../consts';
     font-weight: 700;
   }
   button:hover { background: var(--sel0); border-color: var(--green); }
+  button:disabled { cursor: wait; opacity: 0.65; }
   button::after { content: ' ❯'; }
   #form-status { min-height: 1.5em; color: var(--yellow); }
 </style>

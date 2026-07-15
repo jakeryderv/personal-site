@@ -55,6 +55,19 @@ h1::before, h2::before { content: '\276F '; color: var(--green); }
 
 a { color: var(--blue); text-decoration-color: var(--bg4); text-underline-offset: 3px; }
 a:hover { color: var(--cyan); }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+.skip-link {
+  position: fixed;
+  z-index: 10;
+  inset: 0 auto auto 1rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg0);
+  color: var(--fg0);
+  border: 1px solid var(--cyan);
+  transform: translateY(-120%);
+}
+.skip-link:focus { transform: translateY(0); }
 
 p { margin-block: 0.75rem; }
 ul, ol { padding-inline-start: 1.5rem; }
@@ -124,3 +137,20 @@ footer a:hover { color: var(--cyan); }
 @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
 
 time { color: var(--fg3); }
+
+@media (max-width: 42rem) {
+  header nav { flex-wrap: wrap; gap: 0.75rem 1rem; }
+  .brand { flex-basis: 100%; }
+  header nav ul {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-left: 0;
+  }
+  footer { flex-wrap: wrap; }
+  footer .copyright { flex-basis: 100%; margin-left: 0; }
+}
+
+@media (max-width: 22rem) {
+  main, header nav, footer { width: calc(100% - 1rem); }
+}

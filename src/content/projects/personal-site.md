@@ -2,7 +2,7 @@
 title: jvs.sh
 description: This site — Astro on Cloudflare Workers, carbonfox-themed, with a Worker-powered contact form.
 tech: [Astro, TypeScript, Cloudflare Workers]
-live: https://jvs.sh
+live: https://jvs.sh/
 featured: true
 order: 1
 ---

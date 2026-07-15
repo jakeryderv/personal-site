@@ -22,7 +22,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     <p class="links">
       <a href={GITHUB_URL}><span class="icon" aria-hidden="true">&#xf09b;</span> github</a>
       <a href={LINKEDIN_URL}><span class="icon" aria-hidden="true">&#xf0e1;</span> linkedin</a>
-      <a href="/contact"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact</a>
+      <a href="/contact/"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact</a>
       <a href="/rss.xml"><span class="icon" aria-hidden="true">&#xf09e;</span> rss</a>
     </p>
   </section>
@@ -32,7 +32,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     <ul>
       {projects.map((project) => (
         <li>
-          <a href="/projects">{project.data.title}</a> — {project.data.description}
+          <a href="/projects/">{project.data.title}</a> — {project.data.description}
         </li>
       ))}
     </ul>
@@ -58,6 +58,6 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .name { margin-block: 0.25rem; }
   .name::before { content: none; }
   .tagline { color: var(--fg2); }
-  .links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1rem; }
   section ul { display: grid; gap: 0.4rem; }
 </style>
