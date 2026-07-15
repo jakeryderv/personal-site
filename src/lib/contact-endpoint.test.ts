@@ -120,6 +120,8 @@ describe('handleContactRequest', () => {
     const response = await handleContactRequest(makeRequest(), redirect, dependencies);
 
     expect(response.status).toBe(200);
+    expect(response.headers.get('cache-control')).toBe('no-store');
+    expect(response.headers.get('x-content-type-options')).toBe('nosniff');
     await expect(response.json()).resolves.toEqual({ ok: true });
     expect(fetcher).toHaveBeenCalledOnce();
     expect(fetcher).toHaveBeenCalledWith(
@@ -158,5 +160,6 @@ describe('handleContactRequest', () => {
 
     expect(response.status).toBe(303);
     expect(response.headers.get('location')).toBe('/contact/sent/');
+    expect(response.headers.get('cache-control')).toBe('no-store');
   });
 });

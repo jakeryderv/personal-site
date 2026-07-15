@@ -65,10 +65,19 @@ export async function handleContactRequest(
   dependencies: ContactEndpointDependencies,
 ): Promise<Response> {
   const wantsJson = request.headers.get('accept')?.includes('application/json') ?? false;
-  const respond = (status: number, body: Record<string, unknown>, redirectTo: string) =>
-    wantsJson
+  const respond = (status: number, body: Record<string, unknown>, redirectTo: string) => {
+    const response = wantsJson
       ? Response.json(body, { status })
       : redirect(redirectTo);
+    const headers = new Headers(response.headers);
+    headers.set('cache-control', 'no-store');
+    headers.set('x-content-type-options', 'nosniff');
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
+  };
 
   const contentLength = Number(request.headers.get('content-length'));
   if (Number.isFinite(contentLength) && contentLength > MAX_FORM_BYTES) {

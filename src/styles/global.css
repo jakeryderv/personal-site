@@ -2,28 +2,28 @@
 
 @font-face {
   font-family: '0xProto';
-  src: url('/fonts/0xproto-regular.woff2') format('woff2');
+  src: url('/fonts/0xproto-regular.woff2?v=27e7e134') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: '0xProto';
-  src: url('/fonts/0xproto-bold.woff2') format('woff2');
+  src: url('/fonts/0xproto-bold.woff2?v=8767012b') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: '0xProto';
-  src: url('/fonts/0xproto-italic.woff2') format('woff2');
+  src: url('/fonts/0xproto-italic.woff2?v=473466bf') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: '0xProto Icons';
-  src: url('/fonts/0xproto-icons.woff2') format('woff2');
+  src: url('/fonts/0xproto-icons.woff2?v=c1d1924b') format('woff2');
   font-display: swap;
   unicode-range: U+E000-F8FF;
 }
