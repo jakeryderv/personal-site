@@ -27,6 +27,7 @@ jobs:
       - run: npx wrangler types
       - run: npm run test
       - run: npm run check
+      - run: npm run build
 
   deploy:
     needs: test
