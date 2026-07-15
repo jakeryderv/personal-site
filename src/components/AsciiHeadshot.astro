@@ -1,0 +1,48 @@
+---
+import art from '../assets/ascii-headshot.txt?raw';
+
+const lines = art.trimEnd().split('\n');
+const lineHeight = 56;
+const inset = 64;
+const width = 2332;
+const height = 3208;
+---
+
+<figure class="ascii-headshot" role="img" aria-label="ASCII art portrait of Jake Van Slyke">
+  <svg viewBox={`0 0 ${width} ${height}`} aria-hidden="true" focusable="false">
+    <text
+      x={inset}
+      y={inset}
+      fill="currentColor"
+      font-family="0xProto, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
+      font-size="48"
+      xml:space="preserve"
+      dominant-baseline="text-before-edge"
+      style="white-space: pre;"
+    >
+      {lines.map((line, index) => <tspan x={inset} y={inset + index * lineHeight}>{line}</tspan>)}
+    </text>
+  </svg>
+</figure>
+
+<style>
+  .ascii-headshot {
+    width: min(21rem, 100%);
+    justify-self: end;
+    color: var(--fg2);
+    opacity: 0.92;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 46rem) {
+    .ascii-headshot {
+      width: min(19rem, 90vw);
+      justify-self: center;
+    }
+  }
+</style>
