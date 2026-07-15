@@ -83,8 +83,17 @@ header nav {
   margin-inline: auto;
   padding-block: 1.25rem;
 }
-.brand { color: var(--green); text-decoration: none; font-weight: 700; }
-.brand .path { color: var(--fg3); font-weight: 400; }
+.brand {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.brand .cwd { color: var(--blue); font-weight: 400; }
+.brand .sep { color: var(--fg3); font-weight: 400; }
 header nav ul { display: flex; gap: 1.25rem; list-style: none; padding: 0; margin-left: auto; }
 header nav a[aria-current='page'] { color: var(--pink); }
 
