@@ -1,11 +1,14 @@
 ---
-import art from '../assets/ascii-headshot.txt?raw';
+import art from '../assets/ascii-art-84x61.txt?raw';
 
 const lines = art.trimEnd().split('\n');
+const fontSize = 48;
 const lineHeight = 56;
 const inset = 64;
-const width = 2332;
-const height = 3208;
+const characterWidth = fontSize * 0.6125;
+const columns = Math.max(...lines.map((line) => line.length));
+const width = Math.ceil(inset * 2 + columns * characterWidth);
+const height = inset * 2 + lines.length * lineHeight;
 ---
 
 <figure class="ascii-headshot" role="img" aria-label="ASCII art portrait of Jake Van Slyke">
@@ -15,7 +18,7 @@ const height = 3208;
       y={inset}
       fill="currentColor"
       font-family="0xProto, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
-      font-size="48"
+      font-size={fontSize}
       xml:space="preserve"
       dominant-baseline="text-before-edge"
       style="white-space: pre;"

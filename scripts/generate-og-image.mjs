@@ -9,7 +9,7 @@ const xmlEscape = (value) => value
   .replaceAll('"', '&quot;')
   .replaceAll("'", '&apos;');
 
-const art = (await readFile(new URL('../src/assets/ascii-headshot.txt', import.meta.url), 'utf8'))
+const art = (await readFile(new URL('../src/assets/ascii-art-84x61.txt', import.meta.url), 'utf8'))
   .trimEnd()
   .split('\n');
 const portrait = art
@@ -24,7 +24,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <circle cx="92" cy="92" r="8" fill="#ee5396"/>
   <circle cx="120" cy="92" r="8" fill="#08bdba"/>
   <circle cx="148" cy="92" r="8" fill="#25be6a"/>
-  <g transform="translate(805 113) scale(.137)" opacity=".82">
+  <g transform="translate(803 111) scale(.124)" opacity=".82">
     <text fill="#b6b8bb" font-family="DejaVu Sans Mono, ui-monospace, monospace" font-size="48" xml:space="preserve" dominant-baseline="text-before-edge" style="white-space:pre">${portrait}</text>
   </g>
   <g font-family="DejaVu Sans Mono, ui-monospace, monospace">
