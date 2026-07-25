@@ -56,6 +56,10 @@ These have each broken a build or a deploy before:
     .resize(1200,630,{fit:'fill'}).png().toFile('public/og-image.png')"
   ```
   Always eyeball the result — a font substitution is silent and only visible in the image.
+- **Changing the OG card also means bumping a query param in another repo.** The
+  `jakeryderv/jakeryderv` profile README embeds `https://jvs.sh/og-image.png?v=N`. GitHub
+  serves it through the Camo proxy, which caches by URL forever, so the profile keeps
+  showing the old card until `?v=N` changes. Bump it and push that repo too.
 
 ## Commit conventions
 
