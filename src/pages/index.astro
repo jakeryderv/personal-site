@@ -3,13 +3,12 @@ import { getCollection } from 'astro:content';
 import AsciiHeadshot from '../components/AsciiHeadshot.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { GITHUB_URL, LINKEDIN_URL, SITE_TITLE } from '../consts';
+import { getPublishedPosts } from '../lib/posts';
 
 const projects = (await getCollection('projects', ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const posts = (await getPublishedPosts()).slice(0, 3);
 ---
 
 <BaseLayout title={SITE_TITLE}>
