@@ -2,6 +2,8 @@
 
 Personal site and portfolio. Built with Astro on Cloudflare Workers, live at https://jvs.sh.
 
+Design notes and scope decisions live in [`docs/design.md`](docs/design.md).
+
 ## Development
 
 1. Install dependencies:
