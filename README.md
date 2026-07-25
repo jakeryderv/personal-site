@@ -17,11 +17,14 @@ Design notes and scope decisions live in [`docs/design.md`](docs/design.md).
    ```
    This creates the gitignored `worker-configuration.d.ts` file.
 
-3. Create `.dev.vars` file with Turnstile test secret:
+3. Create a `.dev.vars` file:
    ```
    TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"
+   CONTACT_TO="you@example.com"
    ```
-   This is Cloudflare's documented Turnstile test secret (not a real credential).
+   The Turnstile value is Cloudflare's documented always-pass test secret, not a real
+   credential. Both names must be present for `npx wrangler types` to generate a
+   complete `Env`.
 
 4. Start local dev server:
    ```

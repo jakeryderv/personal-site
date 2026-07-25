@@ -20,10 +20,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # CI has no .dev.vars, but `wrangler types` needs the secret's name to
-      # generate a complete Env for `npm run check`. This is Cloudflare's
-      # documented always-pass Turnstile test secret, not a real credential.
-      - run: echo 'TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"' > .dev.vars
+      # CI has no .dev.vars, but `wrangler types` needs each secret's name to
+      # generate a complete Env for `npm run check`. Values are placeholders and
+      # never deployed — the Turnstile one is Cloudflare's documented always-pass
+      # test secret, and the real values live as Worker secrets in production.
+      - run: |
+          printf '%s\n' \
+            'TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"' \
+            'CONTACT_TO="ci@example.invalid"' > .dev.vars
       - run: npx wrangler types
       - run: npm run test
       - run: npm run check

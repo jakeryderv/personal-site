@@ -104,14 +104,17 @@ Regenerate the SVG whenever the ASCII art changes, then re-render the PNG.
 
 ## Deployment
 
-GitHub Actions on push to `main`: install, generate `.dev.vars` with Cloudflare's
-documented always-pass Turnstile test secret so `wrangler types` can emit a complete
-`Env`, then types, test, check, and build. A gated job runs `wrangler deploy` with the
-API token from repository secrets. Pull requests run the test job only.
+GitHub Actions on push to `main`: install, write a placeholder `.dev.vars` so
+`wrangler types` can emit a complete `Env`, then types, test, check, and build. A gated
+job runs `wrangler deploy` with the API token from repository secrets. Pull requests run
+the test job only, and the deploy job is gated on both the event type and the branch, so
+a pull request from a fork cannot deploy or reach repository secrets.
 
-The sole real secret is `TURNSTILE_SECRET_KEY` — a Worker secret in production and a
-gitignored `.dev.vars` locally. Turnstile sitekeys are public and switch between the test
-key and the live widget key on `import.meta.env.DEV`.
+Two Worker secrets exist in production: `TURNSTILE_SECRET_KEY`, and `CONTACT_TO` — the
+destination address is a secret rather than a plain var purely so it is not scraped out
+of a public repo. Both are mirrored by name in a gitignored `.dev.vars` locally.
+Turnstile sitekeys are public and switch between the test key and the live widget key on
+`import.meta.env.DEV`.
 
 ## Known characteristics
 
