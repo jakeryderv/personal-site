@@ -131,5 +131,5 @@ per-project detail routes, and that is intentional for now, not an oversight.
 
 ---
 
-Supersedes the original design spec (commit `516e2e7`) and implementation plan (commit
-`69961e0`), both removed from the working tree once the site shipped.
+Supersedes the original design spec (commit `d7e25d4`) and implementation plan (commit
+`d7cf2cb`), both removed from the working tree once the site shipped.
