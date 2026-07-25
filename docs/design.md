@@ -53,7 +53,8 @@ shipping:
   Nerd Font glyphs as icons. No icon library, no heavy animation.
 - **ASCII portrait**: `src/assets/ascii-art-84x61.txt` rendered as inline SVG `<tspan>`
   lines by `AsciiHeadshot.astro`, so it scales without raster artifacts and inherits
-  theme color.
+  theme color. `ascii-art-100x72.txt` is an unused higher-resolution rendering of the
+  same portrait, kept deliberately as an alternate — not dead weight to clean up.
 - **JavaScript budget**: zero client-side JS on every page except the contact form's
   submit handler.
 
