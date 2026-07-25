@@ -30,8 +30,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <g font-family="DejaVu Sans Mono, ui-monospace, monospace">
     <text x="96" y="178" fill="#8d8f91" font-size="27">jake@jvs.sh:~$ whoami</text>
     <text x="96" y="286" fill="#f9fbff" font-size="58" font-weight="700">Jake Van Slyke</text>
-    <text x="96" y="358" fill="#b6b8bb" font-size="28">applied AI · robotics</text>
-    <text x="96" y="401" fill="#b6b8bb" font-size="28">computer vision</text>
+    <text x="96" y="358" fill="#b6b8bb" font-size="28">applied AI · developer tooling</text>
+    <text x="96" y="401" fill="#b6b8bb" font-size="28">robotics · computer vision</text>
     <text x="96" y="500" fill="#25be6a" font-size="34">&gt;</text>
     <rect x="141" y="468" width="22" height="39" fill="#25be6a"/>
   </g>

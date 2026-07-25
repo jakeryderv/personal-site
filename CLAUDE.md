@@ -48,7 +48,14 @@ These have each broken a build or a deploy before:
   The real secrets are `TURNSTILE_SECRET_KEY` and `CONTACT_TO` — the latter is a secret
   rather than a var only to keep the address out of a public repo.
 - **Regenerating the ASCII portrait means regenerating the OG card too** — run
-  `node scripts/generate-og-image.mjs`, then re-render `public/og-image.png` from the SVG.
+  `node scripts/generate-og-image.mjs` for the SVG, then re-render the PNG from it.
+  `sharp` is already in `node_modules`, and its librsvg backend keeps DejaVu Sans Mono
+  instead of substituting a fallback:
+  ```
+  node -e "require('sharp')(require('fs').readFileSync('public/og-image.svg'))
+    .resize(1200,630,{fit:'fill'}).png().toFile('public/og-image.png')"
+  ```
+  Always eyeball the result — a font substitution is silent and only visible in the image.
 
 ## Commit conventions
 
