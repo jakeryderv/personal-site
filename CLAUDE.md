@@ -16,8 +16,10 @@ npm run deploy    # build + wrangler deploy (CI does this on push to main)
 
 `npm run check` needs `worker-configuration.d.ts`, which is gitignored — regenerate it
 with `npx wrangler types` after a fresh clone or any `wrangler.jsonc` binding change.
-That command also needs `.dev.vars` to exist so the secret's name lands in `Env`; locally
-it holds Cloudflare's always-pass Turnstile test secret, and CI writes the same value.
+That command also needs `.dev.vars` to exist so each secret's *name* lands in `Env`. It
+holds `TURNSTILE_SECRET_KEY` (Cloudflare's always-pass test secret) and `CONTACT_TO`; CI
+writes placeholders for both. Adding a new secret means adding it in three places:
+`.dev.vars`, the CI step that writes it, and `wrangler secret put` for production.
 
 ## Invariants
 
@@ -43,7 +45,8 @@ These have each broken a build or a deploy before:
   generated config that Wrangler redirects to; build output is `dist/client` (static)
   plus `dist/server` (on-demand). Do not add a `main` field.
 - **Turnstile sitekeys in `src/consts.ts` are public and switch on `import.meta.env.DEV`.**
-  Only `TURNSTILE_SECRET_KEY` is a real secret.
+  The real secrets are `TURNSTILE_SECRET_KEY` and `CONTACT_TO` — the latter is a secret
+  rather than a var only to keep the address out of a public repo.
 - **Regenerating the ASCII portrait means regenerating the OG card too** — run
   `node scripts/generate-og-image.mjs`, then re-render `public/og-image.png` from the SVG.
 
