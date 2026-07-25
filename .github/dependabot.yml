@@ -1,0 +1,24 @@
+version: 2
+updates:
+  # One grouped PR a week each, so updates stay visible without becoming noise.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      astro:
+        patterns:
+          - astro
+          - '@astrojs/*'
+      dev-dependencies:
+        dependency-type: development
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - '*'
