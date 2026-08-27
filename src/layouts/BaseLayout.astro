@@ -15,17 +15,16 @@ const current = Astro.url.pathname;
 const site = Astro.site ?? Astro.url;
 const canonical = new URL(current, site);
 const socialImage = new URL('/og-image.png', site);
-// Terminal-style cwd: '/' -> '~', '/blog/hello-world/' -> '~/blog/hello-world'
+// Terminal-style cwd: '/' -> '~', '/projects/' -> '~/projects'
 const cwd = `~${current.replace(/\/+$/, '')}`;
 const nav = [
   { href: '/', label: 'home' },
   { href: '/about/', label: 'about' },
   { href: '/projects/', label: 'projects' },
-  { href: '/blog/', label: 'blog' },
   { href: '/contact/', label: 'contact' },
 ];
 // '/' is a prefix of every path, so home only matches exactly; the rest match
-// their section so '/blog/hello-world/' still highlights 'blog'.
+// their section, so a nested path still highlights its top-level nav entry.
 const isCurrent = (href: string) =>
   href === '/' ? current === '/' : current === href.slice(0, -1) || current.startsWith(href);
 ---
@@ -55,7 +54,6 @@ const isCurrent = (href: string) =>
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
-    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
     <link rel="preload" href="/fonts/0xproto-regular.woff2?v=27e7e134" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
@@ -76,7 +74,6 @@ const isCurrent = (href: string) =>
     <footer>
       <a href={GITHUB_URL} aria-label="GitHub"><span class="icon" aria-hidden="true">&#xf09b;</span> github</a>
       <a href="/contact/" aria-label="Contact"><span class="icon" aria-hidden="true">&#xf0e0;</span> contact</a>
-      <a href="/rss.xml" aria-label="RSS feed"><span class="icon" aria-hidden="true">&#xf09e;</span> rss</a>
       <span class="copyright">© 2026 Jake Van Slyke</span>
     </footer>
   </body>

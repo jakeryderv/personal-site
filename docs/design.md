@@ -4,8 +4,8 @@ Current-state design notes for the site. Describes what exists and why, not a bu
 
 ## Purpose
 
-Professional online presence and portfolio for Jake Van Slyke: about, projects showcase,
-and a markdown blog as a secondary feature. The primary audience is anyone evaluating
+Professional online presence and portfolio for Jake Van Slyke: about and a projects
+showcase. The primary audience is anyone evaluating
 Jake professionally; the site should read as polished, fast, and technically tasteful.
 
 ## Stack and architecture
@@ -23,12 +23,9 @@ disabled. `vanslyke.ai` stays parked and may 301 here later.
 
 | Route | Type | Content |
 |-------|------|---------|
-| `/` | static | Name, identity line, links, ASCII portrait, featured-project and recent-post teasers |
+| `/` | static | Name, identity line, links, ASCII portrait, featured-project teasers |
 | `/projects/` | static | Portfolio grid from the `projects` collection |
 | `/about/` | static | Bio, skills, education |
-| `/blog/` | static | Post index from the `blog` collection |
-| `/blog/[slug]/` | static | Individual posts, Shiki highlighting themed via CSS variables |
-| `/rss.xml` | static | RSS feed |
 | `/contact/` | static | Email address and profile links |
 | `/404` | static | Custom 404 in site style |
 
@@ -37,7 +34,11 @@ shipping:
 
 - **`projects`** — title, description, tech tags, optional repo/live links, featured flag,
   sort order.
-- **`blog`** — title, date, description, tags, draft flag.
+
+Markdown bodies render through Shiki with `theme: 'css-variables'`, themed by the
+`--astro-code-*` tokens in `src/styles/tokens.css`. No project write-up currently contains
+a code block; the config stays so that adding one renders in the site palette rather than
+Shiki's default light theme.
 
 ## Design system
 
@@ -85,8 +86,8 @@ Regenerate the SVG whenever the ASCII art changes, then re-render the PNG.
 
 ## Testing and verification
 
-- Vitest over `src/lib/post-order.ts` — draft filtering and newest-first ordering. Pure
-  logic is kept in modules free of `astro:*` imports so it tests without the Astro runtime.
+- Vitest over `src/lib/projects.ts` — featured filtering and sort ordering. Pure logic is
+  kept in modules free of `astro:*` imports so it tests without the Astro runtime.
 - `astro check` and `wrangler types --check` via `npm run check`.
 - `npm run build` as the final gate.
 - No E2E suite.

@@ -28,8 +28,8 @@ The site has no secrets and no `.dev.vars`. If one is ever added it goes in thre
 - **Dark only.** Colors come from the carbonfox tokens in `src/styles/tokens.css` — use
   the variables, never raw hex.
 - Touching anything under `src/lib/` means running `npm run test`. Pure logic lives in
-  modules free of `astro:*` imports (see `post-order.ts`) so it tests without the Astro
-  or Worker runtime; `posts.ts` is the thin `astro:content` wrapper over it.
+  modules free of `astro:*` imports (see `projects.ts`) so it tests without the Astro or
+  Worker runtime; pages do the `getCollection` call and pass the result in.
 
 ## Gotchas
 

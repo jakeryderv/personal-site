@@ -37,5 +37,5 @@ Design notes and scope decisions live in [`docs/design.md`](docs/design.md).
 
 Code is MIT licensed — see [LICENSE](LICENSE).
 
-Site content under `src/content/` — the blog posts and project write-ups — is
+Site content under `src/content/` — the project write-ups — is
 © Jake Van Slyke, all rights reserved, and is not covered by the MIT grant.
