@@ -9,10 +9,5 @@
   },
   "observability": { "enabled": true },
   "workers_dev": false,
-  "routes": [{ "pattern": "jvs.sh", "custom_domain": true }],
-  // CONTACT_TO is a Worker secret, not a var — keeping the address out of the
-  // repo so it is not scraped. Set it with `wrangler secret put CONTACT_TO`.
-  "send_email": [
-    { "name": "EMAIL", "allowed_sender_addresses": ["contact@jvs.sh"] }
-  ]
+  "routes": [{ "pattern": "jvs.sh", "custom_domain": true }]
 }

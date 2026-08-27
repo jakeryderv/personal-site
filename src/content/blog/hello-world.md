@@ -6,8 +6,8 @@ tags: [meta]
 ---
 
 This site is built with [Astro](https://astro.build) and deployed to
-Cloudflare Workers. Every page is static except one endpoint that powers
-the contact form.
+Cloudflare Workers. Every page is prerendered to static HTML at build time —
+there is no server-rendered route and no client-side JavaScript.
 
 ```ts
 export function greet(name: string): string {

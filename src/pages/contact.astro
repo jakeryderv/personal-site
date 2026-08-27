@@ -1,65 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { TURNSTILE_SITEKEY } from '../consts';
+import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL } from '../consts';
 ---
 
 <BaseLayout title="contact" description="Get in touch with Jake Van Slyke">
   <h1>contact</h1>
-  <p>Send me a message — it goes straight to my inbox.</p>
+  <p>Email is the best way to reach me — it goes straight to my inbox.</p>
 
-  <form method="post" action="/api/contact/" id="contact-form">
-    <label for="name">name</label>
-    <input id="name" name="name" required maxlength="200" autocomplete="name" />
+  <p class="mail">
+    <a href={`mailto:${CONTACT_EMAIL}`}>
+      <span class="icon" aria-hidden="true">&#xf0e0;</span> {CONTACT_EMAIL}
+    </a>
+  </p>
 
-    <label for="email">email</label>
-    <input id="email" name="email" type="email" required maxlength="254" autocomplete="email" />
-
-    <label for="message">message</label>
-    <textarea id="message" name="message" required minlength="10" maxlength="5000" rows="8"></textarea>
-
-    <div
-      class="cf-turnstile"
-      data-sitekey={TURNSTILE_SITEKEY}
-      data-action="turnstile-spin-v2"
-      data-size="flexible"
-      data-theme="dark"
-    ></div>
-
-    <button type="submit">send</button>
-    <p id="form-status" role="status" aria-atomic="true"></p>
-  </form>
+  <p>
+    <a href={GITHUB_URL}><span class="icon" aria-hidden="true">&#xf09b;</span> github</a> ·
+    <a href={LINKEDIN_URL}><span class="icon" aria-hidden="true">&#xf0e1;</span> linkedin</a>
+  </p>
 </BaseLayout>
 
-<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script is:inline src="/scripts/contact.js"></script>
-
 <style>
-  form { display: grid; gap: 0.5rem; max-width: 40rem; }
-  label { color: var(--fg3); margin-top: 0.5rem; }
-  label::before { content: '# '; color: var(--comment); }
-  input, textarea {
-    background: var(--bg0);
-    color: var(--fg1);
-    border: 1px solid var(--bg3);
-    border-radius: 4px;
-    padding: 0.6rem 0.75rem;
-    font: inherit;
+  .mail {
+    margin: 1.5rem 0;
+    font-size: 1.125rem;
   }
-  input:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue); border-color: var(--blue); }
-  button {
-    justify-self: start;
-    margin-top: 0.75rem;
-    cursor: pointer;
-    background: var(--bg2);
-    color: var(--green);
-    border: 1px solid var(--bg4);
-    border-radius: 4px;
-    padding: 0.6rem 1.5rem;
-    font: inherit;
-    font-weight: 700;
+  .mail::before {
+    content: '> ';
+    color: var(--comment);
   }
-  button:hover { background: var(--sel0); border-color: var(--green); }
-  button:disabled { cursor: wait; opacity: 0.65; }
-  button::after { content: ' ❯'; }
-  #form-status { min-height: 1.5em; color: var(--yellow); }
 </style>
