@@ -2,7 +2,7 @@
 title: jvs.sh
 description: This site — Astro on Cloudflare Workers, carbonfox-themed, fully static with zero client JS.
 tech: [Astro, TypeScript, Cloudflare Workers]
-repo: https://github.com/jakeryderv/personal-site
+repo: https://github.com/jakeryderv/jvs-sh
 live: https://jvs.sh/
 featured: true
 order: 1
