@@ -12,8 +12,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.1.6",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/cloudflare": "^14.2.6",
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.1.5"
   },
   "devDependencies": {
